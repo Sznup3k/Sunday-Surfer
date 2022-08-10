@@ -6,7 +6,7 @@ function PlayState:init()
 
     self.rocks = {}
     
-    self.rockTimer = 0
+    self.rockTimer = 2
 
     self.score = 0
 end
@@ -55,5 +55,6 @@ function PlayState:render()
 
     self.player:render()
 
-    love.graphics.print(self.score, VIRTUAL_WIDTH-20, 20)
+    love.graphics.setFont(gFonts['large'])
+    love.graphics.print(self.score, VIRTUAL_WIDTH-24, 10)
 end

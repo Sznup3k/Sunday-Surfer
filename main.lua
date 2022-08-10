@@ -19,6 +19,12 @@ function love.load()
         ['rock'] = love.graphics.newImage('graphics/rock.png')
     }
 
+    gFonts = {
+        ['small'] = love.graphics.newFont('fonts/font.ttf', 8),
+        ['large'] = love.graphics.newFont('fonts/kiwisoda.ttf', 16)
+    }
+    love.graphics.setFont(gFonts['small'])
+
     gStateMachine = StateMachine{
         ['start'] = function() return StartState() end,
         ['play'] = function() return PlayState() end,
@@ -57,7 +63,7 @@ function love.draw()
     push:start()
 
     love.graphics.clear(20/255, 20/255, 20/255)
-    love.graphics.draw(gTextures['wave1'], -wave_scroll, VIRTUAL_HEIGHT/2-20)
+    love.graphics.draw(gTextures['wave1'], 0, VIRTUAL_HEIGHT/2-20)
     gStateMachine:render()
 
     push:finish()

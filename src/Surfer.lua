@@ -21,6 +21,9 @@ end
 
 function Surfer:update(dt)
     self.x = self.x + self.dx * dt
+
+    if self.x + self.width <= 0 then self.x = VIRTUAL_WIDTH
+    elseif self.x >= VIRTUAL_WIDTH then self.x = 0 - self.width end
 end
 
 function Surfer:render()
