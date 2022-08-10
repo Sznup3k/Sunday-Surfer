@@ -15,16 +15,16 @@ function love.load()
 
     gTextures = {
         ['wave1'] = love.graphics.newImage('graphics/wave1.png'),
-        ['surfer1'] = love.graphics.newImage('graphics/surfer1.png')
+        ['surfer1'] = love.graphics.newImage('graphics/surfer1.png'),
+        ['rock'] = love.graphics.newImage('graphics/rock.png')
     }
 
     gStateMachine = StateMachine{
         ['start'] = function() return StartState() end,
-        ['play'] = function() return PlayState() end
+        ['play'] = function() return PlayState() end,
+        ['score'] = function() return ScoreState() end
     }
     gStateMachine:change('start')
-
-    player = Surfer(VIRTUAL_WIDTH/2-7, VIRTUAL_HEIGHT/2)
 
     keyboard = {}
 end
@@ -48,6 +48,8 @@ end
 function love.update(dt)
     gStateMachine:update(dt)
 
+    --wave_scroll = (wave_scroll + WAVE_SS * dt) % WAVE_LP
+
     keyboard = {}
 end
 
@@ -55,7 +57,7 @@ function love.draw()
     push:start()
 
     love.graphics.clear(20/255, 20/255, 20/255)
-    love.graphics.draw(gTextures['wave1'], 0, VIRTUAL_HEIGHT/2-20)
+    love.graphics.draw(gTextures['wave1'], -wave_scroll, VIRTUAL_HEIGHT/2-20)
     gStateMachine:render()
 
     push:finish()
