@@ -6,6 +6,8 @@ end
 
 function ScoreState:update(dt)
     if keyWasPressed('enter') or keyWasPressed('return') then
+        gSounds['point']:play()
+
         gStateMachine:change('play')
     end
 end

@@ -2,6 +2,8 @@ HighscoreState = Class{__includes = BaseState}
 
 function HighscoreState:update(dt)
     if keyWasPressed('enter') or keyWasPressed('return') then
+        gSounds['point']:play()
+
         gStateMachine:change('play')
     end
 end

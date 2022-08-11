@@ -10,8 +10,8 @@ function Surfer:init(x, y)
 end
 
 function Surfer:collides(object)
-    if self.x + self.width >= object.x and self.x <= object.x + object.width then
-        if self.y + self.height >= object.y and self.y <= object.y + object.height then
+    if self.x + self.width - 5 >= object.x and self.x + 5 <= object.x + object.width then
+        if self.y + self.height - 2 >= object.y and self.y + 3 <= object.y + object.height then
             return true
         end
     end
@@ -27,5 +27,12 @@ function Surfer:update(dt)
 end
 
 function Surfer:render()
-    love.graphics.draw(gTextures['surfer1'], self.x, self.y)
+    love.graphics.draw(
+        gTextures['surfer'],
+        (self.dx/math.abs(self.dx)) == 1 and self.x-2 + self.width+2+2+1 or self.x-2,
+        self.y-2,
+        0,
+        -(self.dx/math.abs(self.dx)),
+        1
+    )
 end

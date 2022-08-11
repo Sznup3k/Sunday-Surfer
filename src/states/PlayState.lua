@@ -2,7 +2,7 @@ PlayState = Class{__includes = BaseState}
 
 function PlayState:init()
     self.player = Surfer(VIRTUAL_WIDTH/2-7, VIRTUAL_HEIGHT/2+5)
-    self.player.dx = math.random(1, 2) == 1 and SURFER_SPEED or -SURFER_SPEED 
+    self.player.dx = math.random(1, 2) == 1 and SURFER_SPEED or -SURFER_SPEED
 
     self.rocks = {}
     
@@ -36,6 +36,8 @@ function PlayState:update(dt)
         rock:update(dt)
 
         if self.player:collides(rock) then
+            gSounds['crash']:play()
+            
             if self.score > highscore then
                 highscore = self.score
                 gStateMachine:change('highscore')
@@ -47,6 +49,8 @@ function PlayState:update(dt)
         if rock.remove == true then
             table.remove(self.rocks, k)
             self.score = self.score + 1
+
+            gSounds['confirm']:play()
         end
     end
 
