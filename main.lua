@@ -16,7 +16,8 @@ function love.load()
     gTextures = {
         ['wave1'] = love.graphics.newImage('graphics/wave1.png'),
         ['surfer1'] = love.graphics.newImage('graphics/surfer1.png'),
-        ['rock'] = love.graphics.newImage('graphics/rock.png')
+        ['rock'] = love.graphics.newImage('graphics/rock.png'),
+        ['background'] = love.graphics.newImage('graphics/background.png')
     }
 
     gFonts = {
@@ -28,9 +29,12 @@ function love.load()
     gStateMachine = StateMachine{
         ['start'] = function() return StartState() end,
         ['play'] = function() return PlayState() end,
-        ['score'] = function() return ScoreState() end
+        ['score'] = function() return ScoreState() end,
+        ['highscore'] = function() return HighscoreState() end
     }
     gStateMachine:change('start')
+
+    highscore = 0
 
     keyboard = {}
 end
@@ -62,7 +66,7 @@ end
 function love.draw()
     push:start()
 
-    love.graphics.clear(20/255, 20/255, 20/255)
+    love.graphics.draw(gTextures['background'], -4, -7)
     love.graphics.draw(gTextures['wave1'], 0, VIRTUAL_HEIGHT/2-20)
     gStateMachine:render()
 

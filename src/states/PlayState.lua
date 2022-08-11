@@ -6,7 +6,7 @@ function PlayState:init()
 
     self.rocks = {}
     
-    self.rockTimer = 2
+    self.rockTimer = 3
 
     self.score = 0
 end
@@ -36,7 +36,12 @@ function PlayState:update(dt)
         rock:update(dt)
 
         if self.player:collides(rock) then
-            gStateMachine:change('score', {score = self.score})
+            if self.score > highscore then
+                highscore = self.score
+                gStateMachine:change('highscore')
+            else
+                gStateMachine:change('score', {score = self.score})
+            end
         end
 
         if rock.remove == true then
@@ -56,5 +61,5 @@ function PlayState:render()
     self.player:render()
 
     love.graphics.setFont(gFonts['large'])
-    love.graphics.print(self.score, VIRTUAL_WIDTH-24, 10)
+    love.graphics.printf(self.score, 0, 5, VIRTUAL_WIDTH, 'center')
 end
