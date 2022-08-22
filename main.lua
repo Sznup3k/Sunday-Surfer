@@ -22,7 +22,8 @@ function love.load()
     }
 
     gFonts = {
-        ['small'] = love.graphics.newFont('fonts/font.ttf', 8), -- link to the font https://github.com/games50/breakout/blob/730f5ff3db7ccddf40270ddb041e1ec65ee995d0/breakout0/fonts/font.ttf (im acctually not sure if its the exact same font but its deffenietely from the GD50)
+        ['small'] = love.graphics.newFont('fonts/font.ttf', 8), -- link to the font https://github.com/games50/breakout/blob/730f5ff3db7ccddf40270ddb041e1ec65ee995d0/breakout0/fonts/font.ttf (im acctually not sure if its the exact same font but its definitely from the GD50)
+        ['huge'] = love.graphics.newFont('fonts/font.ttf', 32),
         ['large'] = love.graphics.newFont('fonts/kiwisoda.ttf', 16) -- link to the font https://www.dafont.com/bitmap.php?page=3
     }
     love.graphics.setFont(gFonts['small'])
@@ -39,12 +40,13 @@ function love.load()
     gStateMachine = StateMachine{
         ['start'] = function() return StartState() end,
         ['play'] = function() return PlayState() end,
-        ['score'] = function() return ScoreState() end,
-        ['highscore'] = function() return HighscoreState() end
+        ['gameOver'] = function() return GameOverState() end,
+        ['highscore'] = function() return HighscoreState() end,
+        ['score'] = function() return ScoreState() end
     }
     gStateMachine:change('start')
 
-    highscore = 0
+    gHighscore = 0
 
     keyboard = {}
 end

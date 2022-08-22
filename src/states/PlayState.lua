@@ -9,10 +9,13 @@ function PlayState:init()
     self.rockTimer = 3
 
     self.score = 0
+
+    gRockSS = 10
 end
 
 function PlayState:update(dt)
-    self.rockTimer = self.rockTimer + dt
+    gRockSS = gRockSS + 0.5 * dt
+    self.rockTimer = self.rockTimer + dt * gRockSS / 10
 
     if keyWasPressed('space') then
         self.player.dx = -self.player.dx
@@ -27,8 +30,11 @@ function PlayState:update(dt)
     if self.rockTimer >= 3 then
         self.rockTimer = 0
 
-        for i=1,3 do
-            table.insert(self.rocks, Rock(math.random(2, 110), math.random(220, 320)))
+        
+        self.row = LevelMaker.spawnRocks(3+self.score/50)
+        for i=1, 3+self.score/50 do
+            --table.insert(self.rocks, Rock(math.random(2, 110), math.random(220, 320)))
+            table.insert(self.rocks, self.row[i])
         end
     end
 
@@ -38,11 +44,11 @@ function PlayState:update(dt)
         if self.player:collides(rock) then
             gSounds['crash']:play()
             
-            if self.score > highscore then
-                highscore = self.score
+            if self.score > gHighscore then
+                gHighscore = self.score
                 gStateMachine:change('highscore')
             else
-                gStateMachine:change('score', {score = self.score})
+                gStateMachine:change('gameOver', {score = self.score})
             end
         end
 

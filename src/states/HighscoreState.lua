@@ -4,13 +4,13 @@ function HighscoreState:update(dt)
     if keyWasPressed('enter') or keyWasPressed('return') then
         gSounds['point']:play()
 
-        gStateMachine:change('play')
+        gStateMachine:change('score', {score = gHighscore})
     end
 end
 
 function HighscoreState:render()
     love.graphics.setFont(gFonts['large'])
-    love.graphics.printf(highscore, 0, VIRTUAL_HEIGHT/2 - 34, VIRTUAL_WIDTH, 'center')
+    love.graphics.printf(gHighscore, 0, VIRTUAL_HEIGHT/2 - 34, VIRTUAL_WIDTH, 'center')
     love.graphics.printf('New Highscore!', 0, VIRTUAL_HEIGHT/2 - 56, VIRTUAL_WIDTH, 'center')
 
     love.graphics.setFont(gFonts['small'])

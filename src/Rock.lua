@@ -3,7 +3,7 @@ Rock = Class{}
 function Rock:init(x, y)
     self.x = x
     self.y = y
-    self.dy = -ROCK_SS
+    self.dy = -gRockSS
 
     self.width = 10
     self.height = 10
